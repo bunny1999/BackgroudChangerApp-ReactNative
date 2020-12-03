@@ -1,12 +1,32 @@
-import { StatusBar } from 'expo-status-bar';
-import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from "react";
+import { StyleSheet, Text, View, TouchableOpacity } from "react-native";
 
 export default function App() {
+  const [state, setstate] = useState({ bg: null, bgButton: "orange" });
+
+  randomColorGen = () => {
+    return (
+      "rgb(" +
+      Math.floor(Math.random() * 256) +
+      "," +
+      Math.floor(Math.random() * 256) +
+      "," +
+      Math.floor(Math.random() * 256) +
+      ")"
+    );
+  };
+
+  onClick = () => {
+    setstate({ bg: randomColorGen(), bgButton: randomColorGen() });
+  };
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
+    <View style={[styles.container, { backgroundColor: state.bg }]}>
+      <TouchableOpacity onPress={onClick}>
+        <Text style={[styles.button, { backgroundColor: state.bgButton }]}>
+          Switch Color
+        </Text>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -14,8 +34,17 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  button: {
+    color: "white",
+    paddingHorizontal: 10,
+    paddingVertical: 10,
+    borderRadius: 5,
+    borderWidth: 2,
+    borderColor: "white",
+    fontSize:22
   },
 });
